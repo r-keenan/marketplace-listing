@@ -5,6 +5,7 @@ import {
   createUserWithEmailAndPassword,
   updateProfile,
 } from "firebase/auth";
+import { setDoc, doc, serverTimestamp } from "firebase/firestore";
 import { db } from "../firebase.config";
 import { ReactComponent as ArrowRightIcon } from "../assets/svg/keyboardArrowRightIcon.svg";
 import visiblityIcon from "../assets/svg/visibilityIcon.svg";
@@ -46,6 +47,14 @@ function SignUp() {
       updateProfile(auth.currentUser, {
         displayName: name,
       });
+
+      //This copies the state. You do not want to overwrite the current state.
+      const formDataCopy = { ...formData };
+      //deleting password, because we do not want that saved in the database.
+      delete formDataCopy.password;
+      formDataCopy.timestamp = serverTimestamp();
+
+      await setDoc(doc(db, "users", user.uid), formDataCopy);
 
       navigate("/");
     } catch (error) {
