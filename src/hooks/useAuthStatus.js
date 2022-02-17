@@ -13,7 +13,7 @@ export const useAuthStatus = () => {
         if (user) {
           setLoggedIn(true);
         }
-        checkingStatus(false);
+        setCheckingStatus(false);
       });
     }
     return () => {
