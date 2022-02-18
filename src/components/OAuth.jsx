@@ -32,7 +32,7 @@ function OAuth() {
       }
       navigate("/");
     } catch (error) {
-      toast.error("Could not authroize with Google");
+      toast.error("Could not authorize with Google");
     }
   };
   return (
