@@ -8,6 +8,7 @@ import { getAuth } from "firebase/auth";
 import { db } from "../firebase.config";
 import Spinner from "../components/Spinner";
 import shareIcon from "../assets/svg/shareIcon.svg";
+
 SwiperCore.use([Navigation, Pagination, Scrollbar, A11y]);
 
 const formatPrice = (price) => {
