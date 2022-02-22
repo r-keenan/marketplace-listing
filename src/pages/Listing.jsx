@@ -1,10 +1,14 @@
 import { useState, useEffect } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
+import SwiperCore, { Navigation, Pagination, Scrollbar, A11y } from "swiper";
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/swiper-bundle.css";
 import { getDoc, doc } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
 import { db } from "../firebase.config";
 import Spinner from "../components/Spinner";
 import shareIcon from "../assets/svg/shareIcon.svg";
+SwiperCore.use([Navigation, Pagination, Scrollbar, A11y]);
 
 const formatPrice = (price) => {
   let formattedPrice = price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
@@ -26,7 +30,6 @@ function Listing() {
       const docSnap = await getDoc(docRef);
 
       if (docSnap.exists()) {
-        console.log(docSnap.data());
         setListing(docSnap.data());
         setLoading(false);
       }
@@ -41,7 +44,19 @@ function Listing() {
 
   return (
     <main>
-      {/* Slider */}
+      <Swiper slidesPerView={1} pagination={{ clickable: true }}>
+        {listing.imgUrls.map((url, index) => (
+          <SwiperSlide key={index}>
+            <div
+              className="swiperSlideDiv"
+              style={{
+                background: `url(${listing.imgUrls[index]}) center no-repeat`,
+                backgroundSize: "cover",
+              }}
+            ></div>
+          </SwiperSlide>
+        ))}
+      </Swiper>
       {/*Copy to clipboard: navigator.clipboard.writeText(window.location.href) */}
       <div
         className="shareIconDiv"
@@ -93,7 +108,7 @@ function Listing() {
 
         {auth.currentUser?.uid !== listing.userRef && (
           <Link
-            to={`/contact/${listing.userRef}?ListingName=${listing.name}`}
+            to={`/contact/${listing.userRef}?listingName=${listing.name}`}
             className="primaryButton"
           >
             Contact Landlord

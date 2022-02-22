@@ -7,6 +7,7 @@ import { toast } from "react-toastify";
 function Contact() {
   const [message, setMessage] = useState("");
   const [landlord, setLandlord] = useState(null);
+  // eslint-disable-next-line
   const [searchParams, setSearchParams] = useSearchParams();
 
   const params = useParams();
@@ -58,7 +59,9 @@ function Contact() {
                 "listingName"
               )}&body=${message}`}
             >
-              <button className="primaryButton" type="button"></button>
+              <button className="primaryButton" type="button">
+                Contact Landlord
+              </button>
             </a>
           </form>
         </main>
