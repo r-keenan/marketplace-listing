@@ -15,7 +15,6 @@ import {
 import { toast } from "react-toastify/";
 import "react-toastify/dist/ReactToastify.css";
 import ListingItem from "../components/ListingItem";
-import EditListing from "../pages/EditListing";
 import arrowRight from "../assets/svg/keyboardArrowRightIcon.svg";
 import homeIcon from "../assets/svg/homeIcon.svg";
 
